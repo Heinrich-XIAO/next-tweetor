@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import Image from 'next/image';
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -11,7 +12,36 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+    
+        <div className="flex h-screen bg-gray-100">
+          {/* Sidebar */}
+          <div className="w-64 bg-gray-800 p-4 text-white">
+            {/* Sidebar Content */}
+            <Image
+              src='/logo.png'
+              width={100}
+              height={100}
+              alt="Tweetor Logo"
+            />
+            <ul>
+              <li className="mb-2">
+                <a href="#" className="text-gray-300 hover:text-white">Login</a>
+              </li>
+              <li className="mb-2">
+                <a href="#" className="text-gray-300 hover:text-white">Signup</a>
+              </li>
+              {/* Add more items as needed */}
+            </ul>
+          </div>
+
+          {/* Main Content */}
+          <div className="flex-1 p-8">
+            {/* Your main content goes here */}          
+            {children}
+          </div>      
+        </div>
+      </body>
     </html>
   );
 }
