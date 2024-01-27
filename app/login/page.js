@@ -1,6 +1,7 @@
 import { useState } from 'next';
 import { redirect } from 'next/navigation';
-
+import { sql } from '@vercel/postgres';
+import hashPassword from '../../helpers/passwordHash'
 
 const Login = () => {
   
@@ -11,7 +12,17 @@ const Login = () => {
       password: formData.get('password'),    
     };
     console.log(rawFormData);
-    const { [rows]: user } = sql`SELECT * FROM users WHERE username=${username}`
+    const { rows } = await sql`SELECT * FROM users WHERE username=${rawFormData.username}`
+    console.log(rows);
+    if (rows.length == 0) {
+      redirect('/login');
+    }
+
+    if (rows.password == await hashPassword(rawFormData.password)) {
+
+
+    }
+    console.log();
     redirect('/');
   }
 
