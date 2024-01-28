@@ -18,6 +18,8 @@ async function hashPassword(password) {
 }
 
 async function setup_db() {
+  
+  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
   await sql`CREATE TABLE IF NOT EXISTS users (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     username TEXT NOT NULL UNIQUE,
@@ -29,9 +31,7 @@ async function setup_db() {
     content TEXT,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     profane_flit TEXT,
-    userHandle TEXT NOT NULL,
-    username TEXT NOT NULL,
-    hashtag TEXT NOT NULL
+    username TEXT NOT NULL
   )`;
 
   if ((await sql`SELECT * FROM users WHERE username='admin'`).rows.length == 0) {

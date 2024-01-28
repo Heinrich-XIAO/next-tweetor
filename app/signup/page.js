@@ -1,30 +1,32 @@
 import { useState } from 'next';
 import { redirect } from 'next/navigation';
 import { sql } from '@vercel/postgres';
-import { cookies } from 'next/headers'
-import hashPassword from '../../helpers/passwordHash';
+import hashPassword from '../../helpers/passwordHash'
 
-const Login = () => {
-
+const Signup = () => {
+  
   async function handleLogin(formData) {
     'use server'
     const rawFormData = {
       username: formData.get('username'),
-      password: formData.get('password'),    
+      password: formData.get('password'),
+      confirmation: formData.get('passwordConfirm')
     };
     console.log(rawFormData);
-    const { rows } = await sql`SELECT * FROM users WHERE username=${rawFormData.username}`
-    console.log(rows);
-    if (rows.length == 0) {
-      redirect('/login');
+    
+    if (rawFormData.password != rawFormData.confirmation) {
+      redirect('/signup');
     }
 
-    if (rows[0].password == await hashPassword(rawFormData.password)) {
-      redirect('/login');
+    const { rows } = await sql`SELECT * FROM users WHERE username=${rawFormData.username}`
+    
+    if (rows.length != 0) {
+      redirect('/signup');
     }
-    console.log("logging in");
-    cookies().set('auth', rows[0].id);
-    redirect('/');  
+    
+    await sql`INSERT INTO users (username, password) VALUES (${rawFormData.username}, ${await hashPassword(rawFormData.password)})`
+
+    redirect('/');
   }
 
   return (
@@ -55,12 +57,24 @@ const Login = () => {
               className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
               placeholder="Enter your password"
             />
+          </div>          
+          <div className="mb-4">
+            <label htmlFor="passwordConfirm" className="block text-gray-600 text-sm font-medium mb-2">
+              Confirmation Password
+            </label>
+            <input
+              type="password"
+              id="passwordConfirm"
+              name="passwordConfirm"
+              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+              placeholder="Enter your password again"
+            />
           </div>
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
           >
-            Log In
+            Signup
           </button>
         </form>
       </div>
@@ -68,5 +82,5 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
 

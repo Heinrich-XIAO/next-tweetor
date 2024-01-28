@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import { cookies } from 'next/headers'
 import Image from 'next/image';
 import "./globals.css";
 
@@ -10,6 +11,12 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  async function logout() {
+    'use server'
+
+    cookies.delete("auth");
+    redirect('/');
+  }
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -25,19 +32,30 @@ export default function RootLayout({ children }) {
               alt="Tweetor Logo"
             />
             <ul>
-              <li className="mb-2">
-                <a href="/login" className="text-gray-300 hover:text-white">Login</a>
-              </li>
-              <li className="mb-2">
-                <a href="/signup" className="text-gray-300 hover:text-white">Signup</a>
-              </li>
+              {
+                cookies().get("auth") == undefined ?
+                (<div><li className="mb-2">
+                  <a href="/login" className="text-gray-300 hover:text-white">Login</a>
+                </li>
+                <li className="mb-2">
+                  <a href="/signup" className="text-gray-300 hover:text-white">Signup</a>
+                </li></div>)
+                :
+                (<div><li className="mb-2">
+                  <a href="/" className="text-gray-300 hover:text-white">Home</a>
+                </li>
+                <li className="mb-2">
+                  <a onClick={logout} className="text-gray-300 hover:text-white">Logout</a>
+                </li></div>)
+              }
             </ul>
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 p-8">
+          <div className="flex-1 pt-0 p-8 px-0">
+            <br/>
             {children}
-          </div>      
+          </div>
         </div>
       </body>
     </html>
