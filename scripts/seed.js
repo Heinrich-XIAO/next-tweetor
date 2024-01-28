@@ -30,6 +30,7 @@ async function setup_db() {
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     content TEXT,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    meme_link TEXT,
     profane_flit TEXT,
     username TEXT NOT NULL
   )`;
