@@ -1,6 +1,5 @@
 import Image from "next/image";
-
-export default ({ content, user, timestamp }) => {
+function Flit({ content, user, timestamp }) {
   timestamp = new Date(timestamp).toDateString(undefined, {
     year: 'numeric',
     month: 'short',
@@ -21,3 +20,4 @@ export default ({ content, user, timestamp }) => {
   );
 };
 
+export default Flit;
