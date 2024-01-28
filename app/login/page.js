@@ -29,7 +29,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="bg-white p-8 rounded shadow-md w-96">
+      <div className="p-8 rounded shadow-md w-96 border border-white">
         <h2 className="text-2xl font-semibold mb-4">Login</h2>
         <form action={handleLogin}>
           <div className="mb-4">
@@ -40,7 +40,7 @@ const Login = () => {
               type="text"
               id="username"
               name="username"
-              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500 bg-black"
               placeholder="Enter your username"
             />
           </div>
@@ -52,7 +52,7 @@ const Login = () => {
               type="password"
               id="password"
               name="password"
-              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500 bg-black"
               placeholder="Enter your password"
             />
           </div>

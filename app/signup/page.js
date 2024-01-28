@@ -31,8 +31,8 @@ const Signup = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="bg-white p-8 rounded shadow-md w-96">
-        <h2 className="text-2xl font-semibold mb-4">Login</h2>
+      <div className="p-8 rounded shadow-md w-96 border border-white">
+        <h2 className="text-2xl font-semibold mb-4">Signup</h2>
         <form action={handleLogin}>
           <div className="mb-4">
             <label htmlFor="username" className="block text-gray-600 text-sm font-medium mb-2">
@@ -42,7 +42,7 @@ const Signup = () => {
               type="text"
               id="username"
               name="username"
-              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500 bg-black"
               placeholder="Enter your username"
             />
           </div>
@@ -54,7 +54,7 @@ const Signup = () => {
               type="password"
               id="password"
               name="password"
-              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500 bg-black"
               placeholder="Enter your password"
             />
           </div>          
@@ -66,7 +66,7 @@ const Signup = () => {
               type="password"
               id="passwordConfirm"
               name="passwordConfirm"
-              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500 bg-black"
               placeholder="Enter your password again"
             />
           </div>

@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
                   <a href="/" className="text-gray-300 hover:text-white">Home</a>
                 </li>
                 <li className="mb-2">
-                  <a onClick={logout} className="text-gray-300 hover:text-white">Logout</a>
+                  <a href="/logout" className="text-gray-300 hover:text-white">Logout</a>
                 </li></div>)
               }
             </ul>
